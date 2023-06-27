@@ -18,5 +18,5 @@ public class Project {
     private String date_end;
     private Integer budget;
     private Employee manager;
-    private List<Employee> employees;
+    
 }

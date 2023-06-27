@@ -27,9 +27,9 @@ public class LoginController {
         } else if (loginService.login(loginRequest).getAuthorities().get(0).equalsIgnoreCase("ROLE_HR")) {
             return "redirect:/hr";
         } else if (loginService.login(loginRequest).getAuthorities().get(0).equalsIgnoreCase("ROLE_MANAGER")) {
-            return "redirect:/manager";
+            return "redirect:/hr";
         } else {
-            return "redirect:/employee";
+            return "redirect:/manager";
         }
     }
 }
