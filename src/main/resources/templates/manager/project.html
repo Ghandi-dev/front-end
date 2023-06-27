@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <div class="container-fluid py-4" layout:fragment="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="card-header pb-0">
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                        <h6>Project table</h6>
+                        <button
+        type="button"
+        class="btn btn-success"
+        data-bs-toggle="modal"
+        data-bs-target="#create"
+      > Add
+        
+      </button>
+    </div>       </div>
+                    <div class="card-body px-0 pt-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table id="project-table" class="table align-items-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th
+                                            class="text-uppercase text-secondary text-secondary font-weight-bolder opacity-7 col-1">
+                                            No</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-secondary font-weight-bolder opacity-7 col-2">
+                                            Name</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-secondary font-weight-bolder opacity-7 col-2">
+                                            Client</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-secondary font-weight-bolder opacity-7 col-2">
+                                            Start date</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-secondary font-weight-bolder opacity-7 col-2">
+                                            End date</th>
+                                            <th
+                                            class="text-uppercase text-secondary text-secondary font-weight-bolder opacity-7 col-2">
+                                            Action</th>
+                                    </tr>
+                                </thead>
+                                
+                                    
+                                
+                            </table>
+                             <!-- Modal Create -->
+    <div
+    class="modal fade"
+    id="create"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="createLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 fw-bold" id="createLabel">
+            Create Project
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="create-name" class="form-label fw-bold">name</label>
+            <input type="text" id="create-code" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label for="create-client" class="form-label fw-bold">Client</label>
+            <input type="text" id="create-name" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label for="create-start" class="form-label fw-bold">Start Date</label>
+            <input type="text" id="create-name" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label for="create-end" class="form-label fw-bold">End Date</label>
+            <input type="text" id="create-name" class="form-control" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button class="btn btn-success" onclick="createProject()">
+            Create
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Update -->
+  <div
+  class="modal fade"
+  id="update"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="updateLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 fw-bold" id="updateLabel">
+          Update Country
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="country-id" />
+
+        <div class="mb-3">
+          <label for="update-code" class="form-label fw-bold">Code</label>
+          <input type="text" id="update-code" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label for="update-name" class="form-label fw-bold">Country Name</label>
+          <input type="text" id="update-name" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label for="update-region" class="form-label fw-bold">Region</label>
+          <select id="update-region" class="form-select">
+            
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >
+          Close
+        </button>
+        <button class="btn btn-success" onclick="updateCountry()">
+          Update
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+    <div layout:fragment="script">
+        <script th:src="@{/js/project.js}"></script>
+    </div>
+    
+</body>
+
+</html>

@@ -13,7 +13,7 @@
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
-                        <h6>Project table</h6>
+                        <h6>Overtime table</h6>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
@@ -25,27 +25,41 @@
                                             No</th>
                                         <th
                                             class="text-uppercase text-secondary text-secondary font-weight-bolder opacity-7 col-2">
-                                            Name</th>
+                                            Job Task</th>
                                         <th
                                             class="text-uppercase text-secondary text-secondary font-weight-bolder opacity-7 col-2">
-                                            Client</th>
+                                            Date</th>
                                         <th
                                             class="text-uppercase text-secondary text-secondary font-weight-bolder opacity-7 col-2">
-                                            Start date</th>
+                                            End</th>
                                         <th
                                             class="text-uppercase text-secondary text-secondary font-weight-bolder opacity-7 col-2">
-                                            End date</th>
-                                       
+                                            Overtime Pay</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-secondary font-weight-bolder opacity-7 col-2">
+                                            Message</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-secondary font-weight-bolder opacity-7 col-2">
+                                            Status</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-secondary font-weight-bolder opacity-7 col-2">
+                                            Employee</th>
+                                        <th class="text-secondary opacity-7"> Action </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="project, key : ${projects}">
+                                    <tr th:each="overtime, key : ${overtimes}">
                                         <td th:text="${key.count}" class="ps-4"></td>
-                                        <td th:text="${project.name}"></td>
-                                        <td th:text="${project.client}"></td>
-                                        <td th:text="${project.date_start}"></td>
-                                        <td th:text="${project.date_end}"></td>
-                                        
+                                        <td th:text="${overtime.jobTask}"></td>
+                                        <td th:text="${overtime.date}"></td>
+                                        <td th:text="${overtime.end}"></td>
+                                        <td th:text="${overtime.overtimePay}"></td>
+                                        <td th:text="${overtime.message}"></td>
+                                        <td th:text="${overtime.status}"></td>
+                                        <td th:text="${overtime.employee.name}"></td>
+                                        <td>
+                                            <!-- Action buttons here -->
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -54,8 +68,6 @@
                 </div>
             </div>
         </div>
-        
-        
     </div>
     <div layout:fragment="script"></div>
 </body>

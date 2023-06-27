@@ -22,35 +22,24 @@ import lombok.AllArgsConstructor;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/employee")
+@RequestMapping("/manager")
 // @PreAuthorize("hasRole('ADMIN')")
-public class EmployeeController {
+public class  ManagerController {
     private EmployeeService employeeService;
     private ProjectService projectService;
-    private HistoryService historyService;
-    private OvertimeService overtimeService;
+    
 
     @GetMapping
     public String index(Model model, Authentication authentication) {
         String username = authentication.getName();
         model.addAttribute("username", username);
         model.addAttribute("isActive", "dashboard");
-        return "employee/index";
+        return "manager/index";
     }
 
     @GetMapping("/project")
     public String project(Model model, Authentication authentication) {
         model.addAttribute("projects", projectService.getAll());
-        return "employee/project";
-    }
-    @GetMapping("/history")
-    public String history(Model model, Authentication authentication) {
-        model.addAttribute("historys", historyService.getAll());
-        return "employee/history";
-    }
-    @GetMapping("/overtime")
-    public String overtime(Model model, Authentication authentication) {
-        model.addAttribute("overtimes", overtimeService.getAll());
-        return "employee/overtime";
+        return "manager/project";
     }
 }
