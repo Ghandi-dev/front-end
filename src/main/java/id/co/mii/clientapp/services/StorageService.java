@@ -26,7 +26,7 @@ public class StorageService {
             unique = generateUniqueFileName(file.getOriginalFilename());
             filePath = FOLDER_PATH + unique;
         }
-        file.transferTo(new File(filePath));
+        file.transferTo(new File(filePath.replaceAll("\\s", "")));
         return unique;
     }
 

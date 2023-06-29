@@ -59,7 +59,7 @@ public class HrController {
     public String registrasi(UserRequest userRequest, MultipartFile file)
             throws IOException {
         String image = storageService.uploadImageToFileSystem(file);
-        userRequest.setPhoto(image.replaceAll("\\s", "%20"));
+        userRequest.setPhoto(image.replaceAll("\\s", ""));
         userService.create(userRequest);
         return "redirect:/hr/employee";
     }

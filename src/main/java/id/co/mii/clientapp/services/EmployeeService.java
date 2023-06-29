@@ -44,6 +44,12 @@ public class EmployeeService {
                 }).getBody();
     }
 
+    public Employee getForProfile() {
+        return restTemplate.exchange(url.concat("/id"), HttpMethod.GET, null,
+                new ParameterizedTypeReference<Employee>() {
+                }).getBody();
+    }
+
     public Employee create(Employee employee) {
         return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity(employee),
                 new ParameterizedTypeReference<Employee>() {

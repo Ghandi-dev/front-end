@@ -56,6 +56,12 @@ public class UserService {
                 }).getBody();
     }
 
+    public User updateUsernamePassword(User user) {
+        return restTemplate.exchange(url.concat("/update"), HttpMethod.PUT, new HttpEntity(user),
+                new ParameterizedTypeReference<User>() {
+                }).getBody();
+    }
+
     public User delete(Integer id) {
         return restTemplate.exchange(url.concat("/" + id), HttpMethod.DELETE, null,
                 new ParameterizedTypeReference<User>() {

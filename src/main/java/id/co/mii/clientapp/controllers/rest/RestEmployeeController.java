@@ -28,6 +28,7 @@ public class RestEmployeeController {
     public List<Employee> getAll() {
         return employeeService.getAll();
     }
+
     @GetMapping("/manager")
     public List<Employee> getAllByManagerId() {
         return employeeService.getByManagerId();
@@ -38,9 +39,9 @@ public class RestEmployeeController {
         return employeeService.getManager();
     }
 
-    @GetMapping("/{id}")
-    public Employee getById(@PathVariable Integer id) {
-        return employeeService.getById(id);
+    @GetMapping("/id")
+    public Employee getById() {
+        return employeeService.getForProfile();
     }
 
     @PostMapping
@@ -55,8 +56,8 @@ public class RestEmployeeController {
 
     @PutMapping("/{id}")
     public Employee update(@PathVariable Integer id, @RequestBody Employee employee) {
-        if(employee.getManager().getId() == null){
-            
+        if (employee.getManager().getId() == null) {
+
         }
         return employeeService.update(id, employee);
     }
