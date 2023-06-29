@@ -26,6 +26,18 @@ public class EmployeeService {
                 }).getBody();
     }
 
+    public List<Employee> getManager() {
+        return restTemplate.exchange(url.concat("/all-manager"), HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<Employee>>() {
+                }).getBody();
+    }
+
+    public List<Employee> getByManagerId() {
+        return restTemplate.exchange(url.concat("/manager"), HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<Employee>>() {
+                }).getBody();
+    }
+
     public Employee getById(Integer id) {
         return restTemplate.exchange(url.concat("/" + id), HttpMethod.GET, null,
                 new ParameterizedTypeReference<Employee>() {

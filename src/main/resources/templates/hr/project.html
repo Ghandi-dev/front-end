@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/hr}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project</title>
+</head>
+
+<body>
+    <div class="container-fluid py-4" layout:fragment="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="d-flex justify-content-between align-items-center mt-3 px-3">
+                        <div class="card-header">
+                            <h6>project table</h6>
+                        </div>
+                        <!-- <button type="button" data-bs-toggle="modal" data-bs-target="#addOvertime"
+                            class="btn bg-gradient-info" onclick="getProjectById()">ADD</button> -->
+                    </div>
+                    <div class="card-body px-0 pt-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table id="project-table" class="table align-items-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-center opacity-7 col-1">
+                                            No</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center font-weight-bolder opacity-7 col-2">
+                                            Name</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center text-center font-weight-bolder opacity-7 col-1">
+                                            Client</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center font-weight-bolder opacity-7 col-2">
+                                            Member</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center font-weight-bolder opacity-7 col-1">
+                                            Budget</th>
+                                        <th class="text-uppercase text-secondary text-center opacity-7"> Action </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- data table -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="detailProject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Detail project</h5>
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="p-4 ">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="detail-name" class="fs-6 fw-bold">Name</label>
+                                                <input disabled type="text"
+                                                    class="form-control form-control-alternative" id="detail-name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="detail-client" class="fs-6 fw-bold">Client</label>
+                                                <input disabled type="text"
+                                                    class="form-control form-control-alternative" id="detail-client">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="detail-desc" class="fs-6 fw-bold">Description</label>
+                                                <input disabled type="text"
+                                                    class="form-control form-control-alternative" id="detail-desc">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="detail-start" class="fs-6 fw-bold">Date
+                                                    start</label>
+                                                <input disabled type="text"
+                                                    class="form-control form-control-alternative" id="detail-start">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="detail-end" class="fs-6 fw-bold">Date end</label>
+                                                <input disabled type="text"
+                                                    class="form-control form-control-alternative" id="detail-end">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="detail-budget" class="fs-6 fw-bold">Budget</label>
+                                                <input disabled type="text"
+                                                    class="form-control form-control-alternative" id="detail-budget">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-8" style="text-align: center;">
+                                            <span class="badge badge-pill badge-lg bg-gradient-success">Team
+                                                Project</span>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center align-items-center mt-3">
+                                        <div class="col-md-4">
+                                            <div class="card card-plain text-center" id="manager">
+                                                <!-- <a href="javascript:;">
+                                                    <img class="avatar avatar-xl shadow"
+                                                        th:src="@{/assets/img/marie.jpg}">
+                                                </a>
+
+                                                <div class="card-body">
+                                                    <h4 class="card-title">Andrew John</h4>
+                                                    <h6 class="category text-success text-gradient">Loan Counselor
+                                                    </h6>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center align-items-center" id="employee">
+                                        <!-- <div class="col-md-4">
+                                            <div class="card card-plain text-center" id="employee">
+                                                <a href="javascript:;">
+                                                    <img class="avatar avatar-xl shadow"
+                                                        th:src="@{/assets/img/marie.jpg}">
+                                                </a>
+
+                                                <div class="card-body">
+                                                    <h4 class="card-title">Andrew John</h4>
+                                                    <h6 class="category text-success text-gradient">Loan Counselor
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </form>
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal"
+                                onclick="emptyDetail()">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div layout:fragment="script">
+        <script th:inline="javascript">
+            var userId = /*[[${User.id}]]*/ null; // Mendapatkan user id dari Thymeleaf
+        </script>
+        <script th:src="@{/assets/js/hr/project.js}"></script>
+
+    </div>
+</body>
+
+</html>

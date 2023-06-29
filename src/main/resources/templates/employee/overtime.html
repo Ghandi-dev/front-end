@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overtime</title>
+</head>
+
+<body>
+    <div class="container-fluid py-4" layout:fragment="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="d-flex justify-content-between align-items-center mt-3 px-3">
+                        <div class="card-header">
+                            <h6>Overtime table</h6>
+                        </div>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#addOvertime"
+                            class="btn bg-gradient-info" onclick="getProjectById()">ADD</button>
+                    </div>
+                    <div class="card-body px-0 pt-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table id="overtime-table" class="table align-items-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-center opacity-7 col-1">
+                                            No</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center font-weight-bolder opacity-7 col-2">
+                                            Job Task</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center text-center font-weight-bolder opacity-7 col-1">
+                                            Date</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center font-weight-bolder opacity-7 col-1">
+                                            Start</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center font-weight-bolder opacity-7 col-1">
+                                            End</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center font-weight-bolder opacity-7 col-2">
+                                            Pay</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center font-weight-bolder opacity-7 col-1">
+                                            Status</th>
+                                        <th class="text-uppercase text-secondary text-center opacity-7"> Action </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- data table -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal add overtime-->
+            <div class="modal fade" id="addOvertime" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add Overtime</h5>
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="p-4 bg-secondary">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="jobTask" class="text-light fs-6 fw-bold">Job Task</label>
+                                                <input type="text" class="form-control form-control-alternative"
+                                                    id="jobTask">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="date" class="text-light fs-6 fw-bold">Date</label>
+                                                <input type="date" class="form-control form-control-alternative"
+                                                    id="date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="start" class="text-light fs-6 fw-bold">Start</label>
+                                                <input onchange="convertToInteger()" type="time"
+                                                    class="form-control form-control-alternative" id="start">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="end" class="text-light fs-6 fw-bold">End</label>
+                                                <input onchange="convertToInteger()" type="time"
+                                                    class="form-control form-control-alternative" id="end">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="pay" class="text-light fs-6 fw-bold">Overtime Pay</label>
+                                                <input type="text" class="form-control form-control-alternative"
+                                                    id="pay">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="project" class="text-light fs-6 fw-bold">Project</label>
+                                                <select id="project" class="form-select"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn bg-gradient-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn bg-gradient-info" onclick="addOvertime()">Save
+                                changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal detail overtime-->
+            <div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">detail Overtime</h5>
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="p-4">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="detail-jobTask" class=" fs-6 fw-bold">Job
+                                                    Task</label>
+                                                <input disabled type="text"
+                                                    class="form-control form-control-alternative" id="detail-jobTask">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="detail-date" class=" fs-6 fw-bold">Date</label>
+                                                <input disabled type="date"
+                                                    class="form-control form-control-alternative" id="detail-date">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="detail-start" class=" fs-6 fw-bold">Start</label>
+                                                <input disabled type="time"
+                                                    class="form-control form-control-alternative" id="detail-start">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="detail-end" class=" fs-6 fw-bold">End</label>
+                                                <input disabled type="time"
+                                                    class="form-control form-control-alternative" id="detail-end">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="detail-pay" class=" fs-6 fw-bold">Overtime
+                                                    Pay</label>
+                                                <input disabled type="text"
+                                                    class="form-control form-control-alternative" id="detail-pay">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="detail-status" class=" fs-6 fw-bold">status</label>
+                                                <input disabled type="text"
+                                                    class="form-control form-control-alternative text-center"
+                                                    id="detail-status">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="detail-project" class=" fs-6 fw-bold">Project</label>
+                                                <input disabled type="text"
+                                                    class="form-control form-control-alternative " id="detail-project">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn bg-gradient-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal update overtime-->
+            <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Update Overtime</h5>
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="p-4 bg-secondary">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control form-control-alternative"
+                                                    id="update-status">
+                                                <label for="update-jobTask" class="text-light fs-6 fw-bold">Job
+                                                    Task</label>
+                                                <input type="text" class="form-control form-control-alternative"
+                                                    id="update-jobTask">
+                                                <input type="hidden" class="form-control form-control-alternative"
+                                                    id="update-id">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="update-date" class="text-light fs-6 fw-bold">Date</label>
+                                                <input type="date" class="form-control form-control-alternative"
+                                                    id="update-date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="update-start" class="text-light fs-6 fw-bold">Start</label>
+                                                <input onchange="convertToInteger()" type="time"
+                                                    class="form-control form-control-alternative" id="update-start">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="update-end" class="text-light fs-6 fw-bold">End</label>
+                                                <input onchange="convertToInteger()" type="time"
+                                                    class="form-control form-control-alternative" id="update-end">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="update-pay" class="text-light fs-6 fw-bold">Overtime
+                                                    Pay</label>
+                                                <input type="text" class="form-control form-control-alternative"
+                                                    id="update-pay">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="update-project"
+                                                    class="text-light fs-6 fw-bold">Project</label>
+                                                <select id="update-project" class="form-select"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn bg-gradient-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn bg-gradient-info" onclick="updateOvertime()">Save
+                                changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div layout:fragment="script">
+        <script th:inline="javascript">
+            function convertToInteger() {
+                var waktuMulaiInput = document.getElementById("start").value;
+                var waktuSelesaiInput = document.getElementById("end").value;
+                var waktuMulaiInputUpdate = document.getElementById("update-start").value;
+                var waktuSelesaiInputUpdate = document.getElementById("update-end").value;
+
+                var waktuMulai = new Date("1970-01-01 " + waktuMulaiInput);
+                var waktuSelesai = new Date("1970-01-01 " + waktuSelesaiInput);
+                var waktuMulaiUpdate = new Date("1970-01-01 " + waktuMulaiInputUpdate);
+                var waktuSelesaiUpdate = new Date("1970-01-01 " + waktuSelesaiInputUpdate);
+
+                var selisih = waktuSelesai - waktuMulai;
+                var selisihUpdate = waktuSelesaiUpdate - waktuMulaiUpdate;
+                var selisihJam = Math.floor(selisih / 1000 / 60 / 60);
+                var selisihJamUpdate = Math.floor(selisihUpdate / 1000 / 60 / 60);
+
+                var pay = document.getElementById("pay");
+                var payUpdate = document.getElementById("update-pay");
+                pay.value = (selisihJam * 100000)
+                payUpdate.value = (selisihJamUpdate * 100000)
+            }
+            var userId = /*[[${User.id}]]*/ null; 
+        </script>
+        <script th:src="@{/assets/js/employee/overtime.js}"></script>
+    </div>
+</body>
+
+</html>

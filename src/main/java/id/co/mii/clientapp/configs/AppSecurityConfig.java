@@ -17,24 +17,21 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/js/**", "/css/**", "/img/**", "/assets/**").permitAll()
-                .antMatchers("/login2").permitAll()
-                .antMatchers("/home").permitAll()
-                // .anyRequest().authenticated()
-                .anyRequest().permitAll()
+                .antMatchers("/login").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .successForwardUrl("/dashboard")
                 .failureForwardUrl("/login?error=true")
                 .permitAll()
                 .and()
                 .logout()
                 .logoutUrl("/logout")
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessUrl("/login")
                 .permitAll();
     }
 
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
 }

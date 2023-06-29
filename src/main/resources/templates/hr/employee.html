@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/hr}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee</title>
+</head>
+
+<body>
+    <div class="container-fluid py-4" layout:fragment="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="d-flex justify-content-between align-items-center mt-3 px-3">
+                        <div class="card-header">
+                            <h6>List Of Employee</h6>
+                        </div>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#add-employee"
+                            class="btn bg-gradient-info" onclick="getManager()">ADD</button>
+                    </div>
+                    <div class="card-body px-0 pt-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table id="employee-table" class="table align-items-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-center opacity-7 col-1">
+                                            No</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center font-weight-bolder opacity-7 col-2">
+                                            Name</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center text-center font-weight-bolder opacity-7 col-1">
+                                            Email</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center font-weight-bolder opacity-7 col-2">
+                                            Phone</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center font-weight-bolder opacity-7 col-1">
+                                            Manager</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center font-weight-bolder opacity-7 col-1">
+                                            Job</th>
+                                        <th class="text-uppercase text-secondary text-center opacity-7"> Action </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- data table -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal add employee-->
+            <div class="modal fade" id="add-employee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add Employee</h5>
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="p-4 ">
+                                <form id="submit-add" th:action="@{/hr/register}" enctype="multipart/form-data"
+                                    th:method="post" th:object="${userRequest}">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="name" class="fs-6 fw-bold">Name</label>
+                                                <input type="text" class="form-control form-control-alternative"
+                                                    id="name" th:field="*{name}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="email" class="fs-6 fw-bold">Email</label>
+                                                <input type="email" class="form-control form-control-alternative"
+                                                    id="email" th:field="*{email}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="phone" class="fs-6 fw-bold">Phone</label>
+                                                <input type="text" class="form-control form-control-alternative"
+                                                    id="phone" th:field="*{phone}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="manager" class="fs-6 fw-bold">Manager</label>
+                                                <select id="manager" class="form-select"
+                                                    th:field="*{managerId}"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="job" class="fs-6 fw-bold">Job</label>
+                                                <select id="job" class="form-select" th:field="*{jobId}"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="username" class="fs-6 fw-bold">Username</label>
+                                                <input type="text" class="form-control form-control-alternative"
+                                                    id="username" th:field="*{username}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="password" class="fs-6 fw-bold">Password</label>
+                                                <input type="text" class="form-control form-control-alternative"
+                                                    id="password" th:field="*{password}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="file" class="fs-6 fw-bold">Photo</label>
+                                                <input type="file" name="file" id="fileInput" accept="image/*"
+                                                    class="form-control form-control-alternative">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn bg-gradient-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn bg-gradient-info">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal detail employee -->
+            <div class="modal fade" id="detail-employee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Detail Employee</h5>
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="p-4 ">
+                                <form>
+                                    <div class="row ">
+                                        <div class="col-md-12">
+                                            <div class="card card-profile card-plain">
+                                                <div class="row align-items-center justify-content-center">
+                                                    <div class="col-lg-5">
+                                                        <a href="javascript:;">
+                                                            <div class="position-relative">
+                                                                <div class="blur-shadow-image" id="user-photo">
+                                                                    <!-- photo -->
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="detail-name" class="fs-6 fw-bold">Name</label>
+                                                <input type="text" class="form-control form-control-alternative"
+                                                    id="detail-name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="detail-email" class="fs-6 fw-bold">Email</label>
+                                                <input type="text" class="form-control form-control-alternative"
+                                                    id="detail-email">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="detail-phone" class="fs-6 fw-bold">Phone</label>
+                                                <input type="text" class="form-control form-control-alternative"
+                                                    id="detail-phone">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="detail-manager" class="fs-6 fw-bold">Manager</label>
+                                                <input type="text" class="form-control form-control-alternative"
+                                                    id="detail-manager">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="detail-job" class="fs-6 fw-bold">Job</label>
+                                                <input type="text" class="form-control form-control-alternative"
+                                                    id="detail-job">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn bg-gradient-secondary"
+                                data-bs-dismiss="modal">Close</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal update employee-->
+            <div class="modal fade" id="update-employee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Update Employee</h5>
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="p-4 ">
+                                <form id="update-form">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <input disabled type="hidden"
+                                                    class="form-control form-control-alternative" id="update-id">
+                                                <label for="update-name" class="fs-6 fw-bold">Name</label>
+                                                <input disabled type="text"
+                                                    class="form-control form-control-alternative" id="update-name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="update-email" class="fs-6 fw-bold">Email</label>
+                                                <input disabled type="email"
+                                                    class="form-control form-control-alternative" id="update-email">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="update-phone" class="fs-6 fw-bold">Phone</label>
+                                                <input disabled type="text"
+                                                    class="form-control form-control-alternative" id="update-phone">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="update-manager" class="fs-6 fw-bold">Manager</label>
+                                                <select id="update-manager" class="form-select"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="update-job" class="fs-6 fw-bold">Job</label>
+                                                <select id="update-job" class="form-select"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <input type="hidden" name="file" id="update-file"
+                                                    class="form-control form-control-alternative">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn bg-gradient-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn bg-gradient-info" onclick="updateEmployee()">Save
+                                changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div layout:fragment="script">
+        <script th:inline="javascript">
+
+            var userId = /*[[${User.id}]]*/ null; // Mendapatkan user id dari Thymeleaf
+            // Gunakan user id dalam logika JavaScript
+        </script>
+        <script th:src="@{/assets/js/hr/employee.js}"></script>
+    </div>
+</body>
+
+</html>

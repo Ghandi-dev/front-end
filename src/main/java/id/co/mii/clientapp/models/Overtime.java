@@ -12,8 +12,10 @@ public class Overtime {
     private String jobTask;
     private String date;
     private String end;
+    private String start;
     private Integer overtimePay;
     private String message;
     private String status;
     private Employee employee;
+    private Project project;
 }

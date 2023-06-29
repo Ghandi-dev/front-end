@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/manager}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overtime</title>
+</head>
+
+<body>
+    <div class="container-fluid py-4" layout:fragment="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="d-flex justify-content-between align-items-center mt-3 px-3">
+                        <div class="card-header">
+                            <h6>Overtime table</h6>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pt-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table id="overtime-table" class="table align-items-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-center opacity-7 col-1">
+                                            No</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center font-weight-bolder opacity-7 col-2">
+                                            Job Task</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center text-center font-weight-bolder opacity-7 col-1">
+                                            Date</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center font-weight-bolder opacity-7 col-1">
+                                            Start</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center font-weight-bolder opacity-7 col-1">
+                                            End</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center font-weight-bolder opacity-7 col-2">
+                                            Pay</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center font-weight-bolder opacity-7 col-1">
+                                            Status</th>
+                                        <th class="text-uppercase text-secondary text-center opacity-7"> Action </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- data table -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal detail overtime-->
+            <div class="modal fade" id="detail-overtime" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">detail Overtime</h5>
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="p-4">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <input disabled type="hidden"
+                                                    class="form-control form-control-alternative" id="detail-id">
+                                                <label for="detail-jobTask" class=" fs-6 fw-bold">Job
+                                                    Task</label>
+                                                <input disabled type="text"
+                                                    class="form-control form-control-alternative" id="detail-jobTask">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="detail-date" class=" fs-6 fw-bold">Date</label>
+                                                <input disabled type="date"
+                                                    class="form-control form-control-alternative" id="detail-date">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="detail-start" class=" fs-6 fw-bold">Start</label>
+                                                <input disabled type="time"
+                                                    class="form-control form-control-alternative" id="detail-start">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="detail-end" class=" fs-6 fw-bold">End</label>
+                                                <input disabled type="time"
+                                                    class="form-control form-control-alternative" id="detail-end">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="detail-pay" class=" fs-6 fw-bold">Overtime
+                                                    Pay</label>
+                                                <input disabled type="text"
+                                                    class="form-control form-control-alternative" id="detail-pay">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="detail-status" class=" fs-6 fw-bold">status</label>
+                                                <input disabled type="text"
+                                                    class="form-control form-control-alternative text-center"
+                                                    id="detail-status">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="detail-project" class=" fs-6 fw-bold">Project</label>
+                                                <input disabled type="text"
+                                                    class="form-control form-control-alternative " id="detail-project">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn bg-gradient-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn bg-gradient-danger" data-bs-dismiss="modal"
+                                onclick="rejectOT()">Reject</button>
+                            <button type="button" class="btn bg-gradient-info" data-bs-dismiss="modal"
+                                onclick="approveOT()">Approve</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div layout:fragment="script">
+        <script th:inline="javascript">
+            var userId = /*[[${User.id}]]*/ null; 
+        </script>
+        <script th:src="@{/assets/js/manager/overtime.js}"></script>
+    </div>
+</body>
+
+</html>

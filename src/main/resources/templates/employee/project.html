@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Project</title>
 </head>
 
 <body>
@@ -12,304 +12,242 @@
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">
-                    <div class="card-header pb-0">
-                        <h6>Project table</h6>
+                    <div class="d-flex justify-content-between align-items-center mt-3 px-3">
+                        <div class="card-header">
+                            <h6>project table</h6>
+                        </div>
+                        <!-- <button type="button" data-bs-toggle="modal" data-bs-target="#addOvertime"
+                            class="btn bg-gradient-info" onclick="getProjectById()">ADD</button> -->
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
-                            <table class="table align-items-center mb-0">
+                            <table id="project-table" class="table align-items-center mb-0">
                                 <thead>
                                     <tr>
-                                        <th
-                                            class="text-uppercase text-secondary text-secondary font-weight-bolder opacity-7 col-1">
+                                        <th class="text-uppercase text-secondary text-center opacity-7 col-1">
                                             No</th>
                                         <th
-                                            class="text-uppercase text-secondary text-secondary font-weight-bolder opacity-7 col-2">
+                                            class="text-uppercase text-secondary text-center font-weight-bolder opacity-7 col-2">
                                             Name</th>
                                         <th
-                                            class="text-uppercase text-secondary text-secondary font-weight-bolder opacity-7 col-2">
+                                            class="text-uppercase text-secondary text-center text-center font-weight-bolder opacity-7 col-1">
                                             Client</th>
                                         <th
-                                            class="text-uppercase text-secondary text-secondary font-weight-bolder opacity-7 col-2">
-                                            Start date</th>
+                                            class="text-uppercase text-secondary text-center font-weight-bolder opacity-7 col-2">
+                                            Member</th>
                                         <th
-                                            class="text-uppercase text-secondary text-secondary font-weight-bolder opacity-7 col-2">
-                                            End date</th>
-                                        <th class="text-secondary opacity-7"> Action </th>
+                                            class="text-uppercase text-secondary text-center font-weight-bolder opacity-7 col-1">
+                                            Budget</th>
+                                        <th class="text-uppercase text-secondary text-center opacity-7"> Action </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="project, key : ${projects}">
-                                        <td th:text="${key.count}" class="ps-4"></td>
-                                        <td th:text="${project.name}"></td>
-                                        <td th:text="${project.client}"></td>
-                                        <td th:text="${project.date_start}"></td>
-                                        <td th:text="${project.date_end}"></td>
-                                        <td th:text="${project.date_end}"></td>
-                                    </tr>
+                                    <!-- data table -->
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="card mb-4">
-                    <div class="card-header pb-0">
-                        <h6>Projects table</h6>
+            <!-- Modal add overtime-->
+            <!-- <div class="modal fade" id="addOvertime" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add Overtime</h5>
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="p-4 bg-secondary">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="jobTask" class="fs-6 fw-bold">Job Task</label>
+                                                <input type="text" class="form-control form-control-alternative"
+                                                    id="jobTask">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="date" class="fs-6 fw-bold">Date</label>
+                                                <input type="date" class="form-control form-control-alternative"
+                                                    id="date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="start" class="fs-6 fw-bold">Start</label>
+                                                <input onchange="convertToInteger()" type="time"
+                                                    class="form-control form-control-alternative" id="start">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="end" class="fs-6 fw-bold">End</label>
+                                                <input onchange="convertToInteger()" type="time"
+                                                    class="form-control form-control-alternative" id="end">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="pay" class="fs-6 fw-bold">Overtime Pay</label>
+                                                <input type="text" class="form-control form-control-alternative"
+                                                    id="pay">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="project" class="fs-6 fw-bold">Project</label>
+                                                <select id="project" class="form-select"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn bg-gradient-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn bg-gradient-info" onclick="addOvertime()">Save
+                                changes</button>
+                        </div>
                     </div>
-                    <div class="card-body px-0 pt-0 pb-2">
-                        <div class="table-responsive p-0">
-                            <table class="table align-items-center justify-content-center mb-0">
-                                <thead>
-                                    <tr>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Project</th>
-                                        <th
-                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                            Budget</th>
-                                        <th
-                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                            Status</th>
-                                        <th
-                                            class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">
-                                            Completion</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2">
-                                                <div>
-                                                    <img src="../assets/img/small-logos/logo-spotify.svg"
-                                                        class="avatar avatar-sm rounded-circle me-2" alt="spotify">
-                                                </div>
-                                                <div class="my-auto">
-                                                    <h6 class="mb-0 text-sm">Spotify</h6>
+                </div>
+            </div> -->
+            <!-- Modal detail overtime-->
+            <div class="modal fade" id="detailProject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Detail project</h5>
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="p-4 ">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="detail-name" class="fs-6 fw-bold">Name</label>
+                                                <input disabled type="text"
+                                                    class="form-control form-control-alternative" id="detail-name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="detail-client" class="fs-6 fw-bold">Client</label>
+                                                <input disabled type="text"
+                                                    class="form-control form-control-alternative" id="detail-client">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="detail-desc" class="fs-6 fw-bold">Description</label>
+                                                <input disabled type="text"
+                                                    class="form-control form-control-alternative" id="detail-desc">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="detail-start" class="fs-6 fw-bold">Date
+                                                    start</label>
+                                                <input disabled type="text"
+                                                    class="form-control form-control-alternative" id="detail-start">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="detail-end" class="fs-6 fw-bold">Date end</label>
+                                                <input disabled type="text"
+                                                    class="form-control form-control-alternative" id="detail-end">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="detail-budget" class="fs-6 fw-bold">Budget</label>
+                                                <input disabled type="text"
+                                                    class="form-control form-control-alternative" id="detail-budget">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-8" style="text-align: center;">
+                                            <span class="badge badge-pill badge-lg bg-gradient-success">Team
+                                                Project</span>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center align-items-center mt-3">
+                                        <div class="col-md-4">
+                                            <div class="card card-plain text-center" id="manager">
+                                                <!-- <a href="javascript:;">
+                                                    <img class="avatar avatar-xl shadow"
+                                                        th:src="@{/assets/img/marie.jpg}">
+                                                </a>
+
+                                                <div class="card-body">
+                                                    <h4 class="card-title">Andrew John</h4>
+                                                    <h6 class="category text-success text-gradient">Loan Counselor
+                                                    </h6>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center align-items-center" id="employee">
+                                        <!-- <div class="col-md-4">
+                                            <div class="card card-plain text-center" id="employee">
+                                                <a href="javascript:;">
+                                                    <img class="avatar avatar-xl shadow"
+                                                        th:src="@{/assets/img/marie.jpg}">
+                                                </a>
+
+                                                <div class="card-body">
+                                                    <h4 class="card-title">Andrew John</h4>
+                                                    <h6 class="category text-success text-gradient">Loan Counselor
+                                                    </h6>
                                                 </div>
                                             </div>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm font-weight-bold mb-0">$2,500</p>
-                                        </td>
-                                        <td>
-                                            <span class="text-xs font-weight-bold">working</span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <div class="d-flex align-items-center justify-content-center">
-                                                <span class="me-2 text-xs font-weight-bold">60%</span>
-                                                <div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-gradient-info" role="progressbar"
-                                                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                                                            style="width: 60%;"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle">
-                                            <button class="btn btn-link text-secondary mb-0">
-                                                <i class="fa fa-ellipsis-v text-xs"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2">
-                                                <div>
-                                                    <img src="../assets/img/small-logos/logo-invision.svg"
-                                                        class="avatar avatar-sm rounded-circle me-2" alt="invision">
-                                                </div>
-                                                <div class="my-auto">
-                                                    <h6 class="mb-0 text-sm">Invision</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm font-weight-bold mb-0">$5,000</p>
-                                        </td>
-                                        <td>
-                                            <span class="text-xs font-weight-bold">done</span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <div class="d-flex align-items-center justify-content-center">
-                                                <span class="me-2 text-xs font-weight-bold">100%</span>
-                                                <div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-gradient-success" role="progressbar"
-                                                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
-                                                            style="width: 100%;"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle">
-                                            <button class="btn btn-link text-secondary mb-0" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <i class="fa fa-ellipsis-v text-xs"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2">
-                                                <div>
-                                                    <img src="../assets/img/small-logos/logo-jira.svg"
-                                                        class="avatar avatar-sm rounded-circle me-2" alt="jira">
-                                                </div>
-                                                <div class="my-auto">
-                                                    <h6 class="mb-0 text-sm">Jira</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm font-weight-bold mb-0">$3,400</p>
-                                        </td>
-                                        <td>
-                                            <span class="text-xs font-weight-bold">canceled</span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <div class="d-flex align-items-center justify-content-center">
-                                                <span class="me-2 text-xs font-weight-bold">30%</span>
-                                                <div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-gradient-danger" role="progressbar"
-                                                            aria-valuenow="30" aria-valuemin="0" aria-valuemax="30"
-                                                            style="width: 30%;"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle">
-                                            <button class="btn btn-link text-secondary mb-0" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <i class="fa fa-ellipsis-v text-xs"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2">
-                                                <div>
-                                                    <img src="../assets/img/small-logos/logo-slack.svg"
-                                                        class="avatar avatar-sm rounded-circle me-2" alt="slack">
-                                                </div>
-                                                <div class="my-auto">
-                                                    <h6 class="mb-0 text-sm">Slack</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm font-weight-bold mb-0">$1,000</p>
-                                        </td>
-                                        <td>
-                                            <span class="text-xs font-weight-bold">canceled</span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <div class="d-flex align-items-center justify-content-center">
-                                                <span class="me-2 text-xs font-weight-bold">0%</span>
-                                                <div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-gradient-success" role="progressbar"
-                                                            aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"
-                                                            style="width: 0%;"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle">
-                                            <button class="btn btn-link text-secondary mb-0" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <i class="fa fa-ellipsis-v text-xs"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2">
-                                                <div>
-                                                    <img src="../assets/img/small-logos/logo-webdev.svg"
-                                                        class="avatar avatar-sm rounded-circle me-2" alt="webdev">
-                                                </div>
-                                                <div class="my-auto">
-                                                    <h6 class="mb-0 text-sm">Webdev</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm font-weight-bold mb-0">$14,000</p>
-                                        </td>
-                                        <td>
-                                            <span class="text-xs font-weight-bold">working</span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <div class="d-flex align-items-center justify-content-center">
-                                                <span class="me-2 text-xs font-weight-bold">80%</span>
-                                                <div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-gradient-info" role="progressbar"
-                                                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="80"
-                                                            style="width: 80%;"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle">
-                                            <button class="btn btn-link text-secondary mb-0" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <i class="fa fa-ellipsis-v text-xs"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2">
-                                                <div>
-                                                    <img src="../assets/img/small-logos/logo-xd.svg"
-                                                        class="avatar avatar-sm rounded-circle me-2" alt="xd">
-                                                </div>
-                                                <div class="my-auto">
-                                                    <h6 class="mb-0 text-sm">Adobe XD</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm font-weight-bold mb-0">$2,300</p>
-                                        </td>
-                                        <td>
-                                            <span class="text-xs font-weight-bold">done</span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <div class="d-flex align-items-center justify-content-center">
-                                                <span class="me-2 text-xs font-weight-bold">100%</span>
-                                                <div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-gradient-success" role="progressbar"
-                                                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
-                                                            style="width: 100%;"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle">
-                                            <button class="btn btn-link text-secondary mb-0" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <i class="fa fa-ellipsis-v text-xs"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                        </div> -->
+                                    </div>
+                                </form>
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal"
+                                onclick="emptyDetail()">Close</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div layout:fragment="script"></div>
+    <div layout:fragment="script">
+        <script th:inline="javascript">
+            var userId = /*[[${User.id}]]*/ null; // Mendapatkan user id dari Thymeleaf
+        </script>
+        <script th:src="@{/assets/js/employee/project.js}"></script>
+
+    </div>
 </body>
 
 </html>

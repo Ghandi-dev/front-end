@@ -13,18 +13,29 @@ import org.springframework.web.bind.annotation.RestController;
 
 import id.co.mii.clientapp.models.Employee;
 import id.co.mii.clientapp.services.EmployeeService;
+import id.co.mii.clientapp.services.UserService;
 import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/country")
+@RequestMapping("/api/employee")
 public class RestEmployeeController {
 
     private EmployeeService employeeService;
+    private UserService userService;
 
     @GetMapping
     public List<Employee> getAll() {
         return employeeService.getAll();
+    }
+    @GetMapping("/manager")
+    public List<Employee> getAllByManagerId() {
+        return employeeService.getByManagerId();
+    }
+
+    @GetMapping("/all-manager")
+    public List<Employee> getManager() {
+        return employeeService.getManager();
     }
 
     @GetMapping("/{id}")
@@ -33,8 +44,8 @@ public class RestEmployeeController {
     }
 
     @PostMapping
-    public Employee create(@RequestBody Employee country) {
-        return employeeService.create(country);
+    public Employee create(@RequestBody Employee employee) {
+        return employeeService.create(employee);
     }
 
     @DeleteMapping("/{id}")
@@ -43,7 +54,10 @@ public class RestEmployeeController {
     }
 
     @PutMapping("/{id}")
-    public Employee update(@PathVariable Integer id, @RequestBody Employee country) {
-        return employeeService.update(id, country);
+    public Employee update(@PathVariable Integer id, @RequestBody Employee employee) {
+        if(employee.getManager().getId() == null){
+            
+        }
+        return employeeService.update(id, employee);
     }
 }

@@ -26,6 +26,24 @@ public class OvertimeService {
                 }).getBody();
     }
 
+    public List<Overtime> getAllForHr() {
+        return restTemplate.exchange(url.concat("/hr"), HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<Overtime>>() {
+                }).getBody();
+    }
+
+    public List<Overtime> getByEmployeeId() {
+        return restTemplate.exchange(url.concat("/employee/"), HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<Overtime>>() {
+                }).getBody();
+    }
+
+    public List<Overtime> getByManagerId() {
+        return restTemplate.exchange(url.concat("/manager/"), HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<Overtime>>() {
+                }).getBody();
+    }
+
     public Overtime getById(Integer id) {
         return restTemplate.exchange(url.concat("/" + id), HttpMethod.GET, null,
                 new ParameterizedTypeReference<Overtime>() {
@@ -49,5 +67,16 @@ public class OvertimeService {
                 new ParameterizedTypeReference<Overtime>() {
                 }).getBody();
     }
-}
 
+    public Overtime approveOvertime(Integer id) {
+        return restTemplate.exchange(url.concat("/approve/" + id), HttpMethod.PUT, null,
+                new ParameterizedTypeReference<Overtime>() {
+                }).getBody();
+    }
+
+    public Overtime rejectOvertime(Integer id) {
+        return restTemplate.exchange(url.concat("/reject/" + id), HttpMethod.PUT, null,
+                new ParameterizedTypeReference<Overtime>() {
+                }).getBody();
+    }
+}

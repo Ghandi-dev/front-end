@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import id.co.mii.clientapp.models.Project;
+import id.co.mii.clientapp.models.dto.request.ProjectRequest;
 
 @Service
 public class ProjectService {
@@ -26,21 +27,33 @@ public class ProjectService {
                 }).getBody();
     }
 
+    public List<Project> getByManagerId() {
+        return restTemplate.exchange(url.concat("/manager/"), HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<Project>>() {
+                }).getBody();
+    }
+
+    public List<Project> getByEmployeeId() {
+        return restTemplate.exchange(url.concat("/employee/"), HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<Project>>() {
+                }).getBody();
+    }
+
     public Project getById(Integer id) {
         return restTemplate.exchange(url.concat("/" + id), HttpMethod.GET, null,
                 new ParameterizedTypeReference<Project>() {
                 }).getBody();
     }
 
-    public Project create(Project Project) {
-        return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity(Project),
-                new ParameterizedTypeReference<Project>() {
+    public ProjectRequest create(ProjectRequest projectRequest) {
+        return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity(projectRequest),
+                new ParameterizedTypeReference<ProjectRequest>() {
                 }).getBody();
     }
 
-    public Project update(Integer id, Project Project) {
-        return restTemplate.exchange(url.concat("/" + id), HttpMethod.PUT, new HttpEntity(Project),
-                new ParameterizedTypeReference<Project>() {
+    public ProjectRequest update(Integer id, ProjectRequest projectRequest) {
+        return restTemplate.exchange(url.concat("/" + id), HttpMethod.PUT, new HttpEntity(projectRequest),
+                new ParameterizedTypeReference<ProjectRequest>() {
                 }).getBody();
     }
 

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/hr}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee</title>
+</head>
+
+<body>
+    <div class="container-fluid py-4" layout:fragment="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-6 ">
+                <div class="card mb-4">
+                    <div class="d-flex justify-content-between align-items-center mt-3 px-3">
+                        <div class="card-header">
+                            <h6>List Of Job</h6>
+                        </div>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#add-job"
+                            class="btn bg-gradient-info">ADD</button>
+                    </div>
+                    <div class="card-body px-0 pt-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table id="job-table" class="table align-items-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-center opacity-7 col-1">
+                                            No</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center font-weight-bolder opacity-7 col-2">
+                                            Name</th>
+                                        <th class="text-uppercase text-secondary text-center opacity-7"> Action </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- data table -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal add job-->
+        <div class="modal fade" id="add-job" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Job</h5>
+                        <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="p-4 ">
+                            <form id="add-form">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="add-name" class="fs-6 fw-bold">Name</label>
+                                            <input type="text" class="form-control form-control-alternative"
+                                                id="add-name">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn bg-gradient-info" onclick="addJob()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal update job-->
+        <div class="modal fade" id="update-job" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">update Job</h5>
+                        <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="p-4 ">
+                            <form id="update">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="hidden" class="form-control form-control-alternative"
+                                                id="update-id">
+                                            <label for="update-name" class="fs-6 fw-bold">Name</label>
+                                            <input type="text" class="form-control form-control-alternative"
+                                                id="update-name">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn bg-gradient-info" onclick="updateJob()">Save Change</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div layout:fragment="script">
+        <script th:inline="javascript">
+
+            var userId = /*[[${User.id}]]*/ null; // Mendapatkan user id dari Thymeleaf
+            // Gunakan user id dalam logika JavaScript
+        </script>
+        <script th:src="@{/assets/js/hr/job.js}"></script>
+    </div>
+</body>
+
+</html>

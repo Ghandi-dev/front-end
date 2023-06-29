@@ -16,7 +16,11 @@ public class LoginController {
 
     @GetMapping("/login")
     public String loginPage(LoginRequest loginRequest) {
-        // model.addAttribute("loginRequest", new LoginRequest());
+        return "auth/login";
+    }
+
+    @GetMapping("/logout")
+    public String logout() {
         return "auth/login";
     }
 

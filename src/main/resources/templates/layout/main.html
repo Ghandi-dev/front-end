@@ -11,7 +11,7 @@
     <meta name="_csrf_header" th:content="${_csrf.headerName}" />
     <!-- Data Table -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="76x76" th:href="@{/assets/img/apple-icon.png}">
     <link rel="icon" type="image/png" th:href="@{/assets/img/favicon.png}">
@@ -25,12 +25,14 @@
     <link th:href="@{/assets/css/nucleo-svg.css}" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" th:href="@{/assets/css/soft-ui-dashboard.css}" rel="stylesheet" />
+
     <title>SIBKM</title>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
 
     <aside th:replace="components/sidebar :: sidebar"></aside>
+    <!-- <aside layout:fragment="sidebar"></aside> -->
 
     <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
         <nav th:replace="components/navbar :: navbar"></nav>
@@ -55,6 +57,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script th:src="@{/assets/js/soft-ui-dashboard.min.js}"></script>
+    <script th:src="@{/assets/js/employee/addCSRF.js}"></script>
     <!-- JS Local -->
     <div layout:fragment="script"></div>
 

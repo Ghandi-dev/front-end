@@ -13,8 +13,7 @@ public class User {
     private Integer id;
     private String username;
     private String password;
-    private String photo;
     private Boolean isEnabled;
+    private Employee employee;
     private List<Role> roles;
 }
-
