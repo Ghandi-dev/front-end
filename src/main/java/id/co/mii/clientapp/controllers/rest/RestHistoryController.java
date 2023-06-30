@@ -26,6 +26,21 @@ public class RestHistoryController {
         return historyService.getAll();
     }
 
+    @GetMapping("/news")
+    public List<History> getNews() {
+        return historyService.getNews();
+    }
+
+    @GetMapping("/employee")
+    public List<History> getByEmployee() {
+        return historyService.getByEmployee();
+    }
+
+    @GetMapping("/manager")
+    public List<History> getByManager() {
+        return historyService.getByManager();
+    }
+
     @GetMapping("/{id}")
     public History getById(@PathVariable Integer id) {
         return historyService.getById(id);

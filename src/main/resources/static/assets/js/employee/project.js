@@ -76,7 +76,7 @@ getDetail = (id) => {
       $("#detail-budget").val(rupiah(res.budget));
       $("#manager").append(`<a href="javascript:;">
       <img class="avatar avatar-xl shadow"
-          src="http://localhost:9000/api/user/photo/${res.manager.photo}">
+          src="http://localhost:9001/api/user/photo/${res.manager.photo}">
   </a>
 
   <div class="card-body">

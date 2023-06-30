@@ -1,6 +1,7 @@
 package id.co.mii.clientapp.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -15,17 +16,13 @@ public class LoginController {
     private LoginService loginService;
 
     @GetMapping("/login")
-    public String loginPage(LoginRequest loginRequest) {
-        return "auth/login";
-    }
-
-    @GetMapping("/logout")
-    public String logout() {
+    public String loginPage(Model model, LoginRequest loginRequest) {
         return "auth/login";
     }
 
     @PostMapping("/login")
     public String login(LoginRequest loginRequest) {
+        loginService.login(loginRequest);
         if (loginService.login(loginRequest) == null) {
             return "redirect:/login?error=true";
         } else if (loginService.login(loginRequest).getAuthorities().get(0).equalsIgnoreCase("ROLE_HR")) {

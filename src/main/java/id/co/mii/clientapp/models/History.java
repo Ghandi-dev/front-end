@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class History {
     private Integer id;
     private String status;
+    private String createAt;
 }

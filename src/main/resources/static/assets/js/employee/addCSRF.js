@@ -21,6 +21,7 @@ function logout() {
         url: "/logout",
         dataType: "JSON",
         beforeSend: addCsrfToken(),
+        success: (res) => {},
       });
       window.location = "http://localhost:9001/login";
     }

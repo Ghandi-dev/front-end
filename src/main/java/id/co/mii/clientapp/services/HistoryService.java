@@ -26,6 +26,24 @@ public class HistoryService {
                 }).getBody();
     }
 
+    public List<History> getNews() {
+        return restTemplate.exchange(url.concat("/news"), HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<History>>() {
+                }).getBody();
+    }
+
+    public List<History> getByEmployee() {
+        return restTemplate.exchange(url.concat("/employee"), HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<History>>() {
+                }).getBody();
+    }
+
+    public List<History> getByManager() {
+        return restTemplate.exchange(url.concat("/manager"), HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<History>>() {
+                }).getBody();
+    }
+
     public History getById(Integer id) {
         return restTemplate.exchange(url.concat("/" + id), HttpMethod.GET, null,
                 new ParameterizedTypeReference<History>() {

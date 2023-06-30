@@ -123,9 +123,9 @@ getDetail = (id) => {
     method: "GET",
     url: "/api/employee/" + id,
     dataType: "JSON",
+    beforeSend: addCsrfToken(),
     contentType: "application/json",
     success: (res) => {
-      console.log(res);
       $("#user-photo").empty();
       $("#user-photo").append(`<img class="w-100 rounded-3 shadow-lg"
       src="http://localhost:9001/api/user/photo/${res.photo}">`);

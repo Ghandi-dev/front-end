@@ -9,9 +9,41 @@
 
 <body>
     <div class="container-fluid py-4" layout:fragment="container">
-        
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <div class="card mb-4">
+                    <div class="d-flex justify-content-between align-items-center mt-3 px-3">
+                        <div class="card-header">
+                            <h6>History table</h6>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pt-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table id="history-table" class="table align-items-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-center opacity-7 col-1">
+                                            No</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center font-weight-bolder opacity-7 col-2">
+                                            Status</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-center text-center font-weight-bolder opacity-7 col-1">
+                                            Update on</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- data table -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div layout:fragment="script">
+        <script th:src="@{/assets/js/employee/history.js}"></script>
     </div>
 </body>
 

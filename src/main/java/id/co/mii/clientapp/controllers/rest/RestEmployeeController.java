@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import id.co.mii.clientapp.models.Employee;
 import id.co.mii.clientapp.services.EmployeeService;
+import id.co.mii.clientapp.services.JobService;
 import id.co.mii.clientapp.services.UserService;
 import lombok.AllArgsConstructor;
 
@@ -22,6 +23,7 @@ import lombok.AllArgsConstructor;
 public class RestEmployeeController {
 
     private EmployeeService employeeService;
+    private JobService jobService;
     private UserService userService;
 
     @GetMapping
@@ -37,6 +39,11 @@ public class RestEmployeeController {
     @GetMapping("/all-manager")
     public List<Employee> getManager() {
         return employeeService.getManager();
+    }
+
+    @GetMapping("/{id}")
+    public Employee getById(@PathVariable Integer id) {
+        return employeeService.getById(id);
     }
 
     @GetMapping("/id")
@@ -56,9 +63,9 @@ public class RestEmployeeController {
 
     @PutMapping("/{id}")
     public Employee update(@PathVariable Integer id, @RequestBody Employee employee) {
-        if (employee.getManager().getId() == null) {
-
-        }
-        return employeeService.update(id, employee);
+        Employee emp = employeeService.getById(id);
+        emp.setManager(employeeService.getById(employee.getManager().getId()));
+        emp.setJob(jobService.getById(employee.getJob().getId()));
+        return employeeService.update(id, emp);
     }
 }
