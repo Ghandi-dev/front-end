@@ -24,6 +24,7 @@ function logout() {
         success: (res) => {},
       });
       window.location = "http://localhost:9001/login";
+      window.location.reload(true);
     }
   });
 }
